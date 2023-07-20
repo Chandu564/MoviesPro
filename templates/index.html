@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>iMovie Online</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js "></script>
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+
+</head>
+
+<body>
+    <div class="header">
+
+        <!-- Collapsive Navbar -->
+
+        <div class="navbar" id="navb" align="center">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="navbar-brand">
+                        iMovie
+                    </div>
+                    <button class="navbar-toggle" data-toggle="collapse" data-target="#myNav">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="myNav">
+                    {% if user.is_authenticated %}
+                    <ul class="nav navbar-nav myNav">
+                        <li class="active">Home</li>
+                        <li class="underline" style="color:cyan">Welcome {{user.username}}!</li>
+                        <li class="active"><a href="add" style="color:orange">Add Movie</a></li>
+                        <li>Call us : 00-56 445 678 33</li>
+
+                        <li class="underline"><a href="logout" style="color:green">Logout</a></li>
+                    </ul>
+                    <
+                    {% if request.session.recent_movies %}
+                    <div class="tripTitle"><label style="color:black">Recent Movies</label></div>
+                    {% for id,title in request.session.recent_movies.items %}
+                    <a href="{{id}}">{{title}}</a>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="motto">
+                    Let us take you away
+                </div>
+
+                <!-- Side Menu -->
+
+                <div class="sideTabs">
+                    <a href="#" data-scroll-to="#section1" class="underline">Offers &nbsp; 01</a>
+                    <br>
+                    <a href="#" data-scroll-to="#section2" class="underline">Testimonials &nbsp; 02</a>
+                    <br>
+                    <a href="#" data-scroll-to="#section3" class="underline">Latest &nbsp; 03</a>
+                </div>
+
+                <!-- Search for your Movie-->
+
+                <div class="searchForm">
+                    <br>
+                    <div>
+                        <br>
+                        <div class="searchFormTitle">Search for your Movie</div>
+                        <br>
+                        <div class="searchFormContent">
+                            <form>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="  col-md-3 ">
+                                            <input type="text" placeholder="Title" class="inputSearch">
+                                        </div>
+                                        <div class=" col-md-2 ">
+                                            <input type="text" placeholder="English" class="inputSearch">
+                                        </div>
+                                        <div class=" col-md-2 ">
+                                            <input type="text" placeholder="Year" class="inputSearch">
+                                        </div>
+                                        <div class=" col-md-3 ">
+                                            <input type="text" placeholder="Actor" class="inputSearch">
+                                        </div>
+                                        <div class=" col-md-2">
+                                            <button class="btn searchButton">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <!-- List of Services -->
+
+            <div class="row">
+                <div class="intro">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="col-md-4 myClass">
+                                <img class="iconPic" src="{% static 'images/beach.svg' %}" alt="">
+                            </div>
+                            <div class="col-md-8 myClass">
+                                <div class="contentTitle">Classic Movies</div>
+                                <div class="contentSubtitle">Nulla pretium tincidunt felis, nec.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-4 myClass">
+                                    <img class="iconPic" src="{% static 'images/wallet.svg' %}" alt="">
+                                </div>
+                                <div class="col-md-8 myClass">
+                                    <div class="contentTitle">Latest Movies</div>
+                                    <div class="contentSubtitle">Sollicitudin mauris lobortis in.</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-4 myClass">
+                                <img class="iconPic" src="{% static 'images/suitcase.svg' %}" alt="">
+                            </div>
+                            <div class="col-md-8 myClass">
+                                <div class="contentTitle">Most Viewed</div>
+                                <div class="contentSubtitle">Nulla pretium tincidunt felis, nec.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <hr style="margin: 60px;height: 1px;background:lightgray">
+        <br>
+        <br>
+        <br>
+        <div class="motto1" id="section1">Great Entertainment Assured</div>
+        <br>
+        <div class="motto2">Watch Now</div>
+
+        <!-- List of Movies -->
+
+        <div class="tripList">
+            <div class="row">
+                {% for m in movies %}
+                <a href="{{m.id}}" style="color:black">
+                <div class="col-md-4 trip">
+                    {% static 'images' as basicUrl %}
+                    <span class="notify-badge">NEW</span>
+                    <img src="{{m.poster.url}}" alt="" class="tripImage">
+                    <div class="lead_actor">{{m.lead_actor}}'s <h3>{{m.title}}</h3></div>
+                    <div class="tripDescription">{{m.language}}</div>
+                    <div class="release_year">{{m.release_year}}</div>
+                    <div class="rating">{{m.rating}}</div>
+
+                </div>
+                    </a>
+        {% endfor %}
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        
+
+        
+
+        <!-- News Letter -->
+
+        <div>
+            <div class="newsLetter">
+                <div class="newsletterTitle">Subscribe to our newsletter to get the latest trends & news</div>
+                <br>
+                <div class="newsLetterSubtitle">Join our database NOW!</div>
+                <br>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <form class="display" action="">
+                            <div class="col-md-3 col-md-offset-2">
+                                <input type="text" placeholder="Name" class="inputNewsLetter">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" placeholder="Your Email" class="inputNewsLetter">
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn  myBtn">SUBSCRIBE</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 myClass">
+                        <img src="{% static 'images/sign.svg' %}" alt="" class="newsIconPic">
+                        <div class="newsLetterSub">GIVE US A CALL</div>
+                        <div class="newsLetterText">Landline: +44 5567 32 664 567</div>
+                        <div class="newsLetterText">Mobile: +44 5567 30 674 567 </div>
+                    </div>
+                    <div class="col-md-4 myClass">
+                        <img src="{% static 'images/trekking.svg' %}" alt="" class="newsIconPic">
+                        <div class="newsLetterSub">COME & DROP BY</div>
+                        <div class="newsLetterText">4124 Bames Street,Sanford</div>
+                        <div class="newsLetterText">FL 32771</div>
+                    </div>
+                    <div class="col-md-4 myClass">
+                        <img src="{% static 'images/around.svg' %}" alt="" class="newsIconPic">
+                        <div class="newsLetterSub">SEND US A MESSAGE</div>
+                        <div class="newsLetterText">youremail@gmail.com</div>
+                        <div class="newsLetterText">office@yourbussinessname.com</div>
+                    </div>
+                </div>
+                <br>
+                <div class="footer">Copyright 2020 All rights reserved | This template is made by ETA</div>
+            </div>
+        </div>
+</body>
+<script src="{% static 'js/index.js' %}"></script>
+
+</html>
