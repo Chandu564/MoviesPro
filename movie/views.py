@@ -40,7 +40,7 @@ def get_all_movies(request):
     serializer=MovieSerializerClass(mvs,many=True)
     return Response(serializer.data)
 @api_view(['GEt'])
-def get_one_movie(request,id):
+def get_one_movie_by_id(request,id):
     mvs=Movie.objects.filter(id=id)
     ser=MovieSerializerClass(mvs)
     return Response(ser.data)
